@@ -72,9 +72,9 @@ class HistorySectionController
         @.deleting = commentId
         return @rs.history.deleteComment(type, objectId, activityId).then =>
             @._loadHistory()
-            @.deleting = commentId
+            @.deleting = null
 
-    editComment: (commentId, comment) ->
+    editComment: (commentId, comment, cb) ->
         type = @.name
         objectId = @.id
         activityId = commentId
@@ -93,12 +93,10 @@ class HistorySectionController
             @._loadHistory()
             @.editing = null
 
-    addComment: () ->
-        type = @.type
-        @.loading = true
+    addComment: (cb) ->
         @repo.save(@.type).then =>
             @._loadHistory()
-            @.loading = false
+            cb()
 
     onOrderComments: () ->
         @.reverse = !@.reverse

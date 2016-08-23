@@ -75,7 +75,6 @@ sizeFormat = =>
 
 module.filter("sizeFormat", sizeFormat)
 
-
 toMutableFilter =  ->
     toMutable = (js) ->
       return js.toJS()
@@ -127,3 +126,12 @@ darkerFilter = ->
 
 
 module.filter("darker", darkerFilter)
+
+markdownToHTML = (wysiwigService) ->
+    return (input) ->
+        if input
+            return wysiwigService.getHTML(input)
+
+        return ""
+
+module.filter("markdownToHTML", ["tgWysiwygService", markdownToHTML])
